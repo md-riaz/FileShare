@@ -1,0 +1,236 @@
+*,
+*::before,
+*::after {
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  min-width: 100vw;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  font-family: 'Exo', 'Hind Siliguri', sans-serif;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+.wrapper {
+  height: 500px;
+  width: 500px;
+  text-align: center;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+}
+
+.form_group {
+  position: relative;
+  width: 300px;
+  min-height: 185px;
+}
+
+.form_group #file_input {
+  display: none;
+}
+
+.form_group .upload_icon {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  margin: 30px auto;
+  position: relative;
+  border: 2px dashed rgba(158, 158, 158, 0.33);
+  cursor: pointer;
+  -webkit-transition: .5s;
+  transition: .5s;
+}
+
+.form_group .upload_icon:hover {
+  background-color: #80808024;
+}
+
+.form_group .upload_icon .up_svg {
+  position: absolute;
+  height: 45px;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%) scale(1);
+  transform: translate(-50%, -50%) scale(1);
+}
+
+.form_group .upload_icon.play {
+  background-color: #80808024;
+}
+
+.form_group .upload_icon.play .up_svg {
+  -webkit-animation: play 2s infinite;
+  animation: play 2s infinite;
+}
+
+@-webkit-keyframes play {
+  40% {
+    -webkit-transform: translate(-50%, -50%) scale(0.8);
+    transform: translate(-50%, -50%) scale(0.8);
+  }
+
+  70%,
+  100% {
+    -webkit-transform: translate(-50%, -50%) scale(1);
+    transform: translate(-50%, -50%) scale(1);
+  }
+}
+
+@keyframes play {
+  40% {
+    -webkit-transform: translate(-50%, -50%) scale(0.8);
+    transform: translate(-50%, -50%) scale(0.8);
+  }
+
+  70%,
+  100% {
+    -webkit-transform: translate(-50%, -50%) scale(1);
+    transform: translate(-50%, -50%) scale(1);
+  }
+}
+
+.form_group svg.progress-ring {
+  position: absolute;
+  top: -10px;
+  left: -10px;
+}
+
+.form_group circle.progress-ring__circle {
+  -webkit-transition: 0.35s stroke-dashoffset;
+  transition: 0.35s stroke-dashoffset;
+  -webkit-transform: rotate(-90deg);
+  transform: rotate(-90deg);
+  -webkit-transform-origin: 50% 50%;
+  transform-origin: 50% 50%;
+}
+
+.form_group .form_heading {
+  margin: auto;
+  width: 300px;
+  height: 35px;
+  line-height: 35px;
+  background-color: #4186FB;
+  color: #fff;
+}
+
+.form_group #uploadSubmit {
+  background-color: #4186FB;
+  color: #fff;
+  border: none;
+  display: block;
+  width: 100%;
+  height: 40px;
+  margin-top: 10px;
+  cursor: pointer;
+  -webkit-transition: .5s;
+  transition: .5s;
+}
+
+.form_group #uploadSubmit:hover {
+  background-color: #3673da;
+}
+
+.form_group .upload_field {
+  background-color: #F2F2F2;
+  margin: auto;
+  padding-top: 5px;
+}
+
+.form_group .upload_field .note {
+  font-size: 0.8em;
+  text-align: left;
+  margin-left: 10px;
+  color: #8a8989;
+}
+
+.form_group .upload_field .total_size {
+  color: #8a8989;
+  font-size: 0.8em;
+}
+
+.form_group .success {
+  position: absolute;
+  top: 0;
+  left: 0;
+  padding: 100px;
+  width: 100%;
+  height: 100%;
+  background-color: #7FD136;
+  -webkit-transform: scaleY(0);
+  transform: scaleY(0);
+  -webkit-transform-origin: bottom;
+  transform-origin: bottom;
+  -webkit-transition: .5s;
+  transition: .5s;
+}
+
+.form_group .success p {
+  color: #fff;
+  font-size: 1.5em;
+}
+
+.form_group .success.show {
+  -webkit-animation: show_msg 1.5s linear forwards;
+  animation: show_msg 1.5s linear forwards;
+}
+
+@-webkit-keyframes show_msg {
+
+  20%,
+  80% {
+    -webkit-transform: scaleY(1);
+    transform: scaleY(1);
+  }
+
+  100% {
+    -webkit-transform: scaleY(0);
+    transform: scaleY(0);
+  }
+}
+
+@keyframes show_msg {
+
+  20%,
+  80% {
+    -webkit-transform: scaleY(1);
+    transform: scaleY(1);
+  }
+
+  100% {
+    -webkit-transform: scaleY(0);
+    transform: scaleY(0);
+  }
+}
+
+.form_group .file_names {
+  line-height: 1;
+  text-align: left;
+  padding: 10px;
+}
+
+.back {
+  cursor: pointer;
+  position: fixed;
+  top: 20px;
+  left: 20px;
+}

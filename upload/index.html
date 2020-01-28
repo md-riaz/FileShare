@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=350, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="icon" type="image/ico" sizes="16x16" href="favicon.ico">
+    <link href="https://fonts.googleapis.com/css?family=Exo:300,400,400i,500,700|Hind+Siliguri:300,400,500&display=swap"
+        rel="stylesheet">
+    <title>File Upload</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+    <div class="wrapper">
+        <div class="form_group">
+            <div class="form_heading"><b>Choose a File & Click Upload Button</b></div>
+
+            <form action="PHP/upload.php" method="POST" enctype="multipart/form-data" class="form">
+                <label for="file_input">
+                    <div class="upload_field">
+                        <div class="upload_icon">
+                            <svg x="0px" y="0px" viewBox="-284.8 380.7 26.9 33.3" class="up_svg" xml:space="preserve">
+                                <style type="text/css">
+                                    .st0 {
+                                        fill: #FFFFFF;
+                                    }
+
+                                    .st1 {
+                                        fill: #C6C6C6;
+                                    }
+                                </style>
+                                <path class="st0"
+                                    d="M-257.9,383.4l0,5.8L-257.9,383.4C-257.9,383.4-257.9,383.4-257.9,383.4z" />
+                                <path class="st0" d="M-282.3,380.7c-1.4,0-2.5,1.5-2.5,2.8v28.1c0,1.4,1.1,2.5,2.5,2.5h21.9c1.4,0,2.5-1.1,2.5-2.5v-22.3l-8.5-8.6
+                               H-282.3z" />
+                                <g>
+                                    <g>
+                                        <path class="st1" d="M-271.4,405.5L-271.4,405.5c-0.3,0-0.5-0.2-0.5-0.5v-11.3c0-0.3,0.2-0.5,0.5-0.5l0,0c0.3,0,0.5,0.2,0.5,0.5
+                                       V405C-270.9,405.3-271.1,405.5-271.4,405.5z" />
+                                        <path class="st1"
+                                            d="M-267,398.5c-0.1,0-0.3,0-0.4-0.1l-4-4l-4,4c-0.2,0.2-0.5,0.2-0.7,0s-0.2-0.5,0-0.7l4.3-4.3
+                                       c0.2-0.2,0.5-0.2,0.7,0l4.3,4.3c0.2,0.2,0.2,0.5,0,0.7C-266.8,398.5-266.9,398.5-267,398.5z" />
+                                    </g>
+                                    <g>
+                                        <path class="st1" d="M-260.4,414h-21.9c-1.4,0-2.5-1.1-2.5-2.5v-28.3c0-1.4,1.1-2.5,2.5-2.5h15.9c0.3,0,0.5,0.2,0.5,0.5
+                                       s-0.2,0.5-0.5,0.5h-15.9c-0.8,0-1.5,0.7-1.5,1.5v28.3c0,0.8,0.7,1.5,1.5,1.5h21.9c0.8,0,1.5-0.7,1.5-1.5v-22.1
+                                       c0-0.3,0.2-0.5,0.5-0.5s0.5,0.2,0.5,0.5v22.1C-257.9,412.9-259,414-260.4,414z" />
+                                        <path class="st1" d="M-258.4,389.9h-8c-0.3,0-0.5-0.2-0.5-0.5v-8c0-0.3,0.2-0.5,0.5-0.5s0.5,0.2,0.5,0.5v7.5h7.5
+                                       c0.3,0,0.5,0.2,0.5,0.5S-258.1,389.9-258.4,389.9z" />
+                                        <path class="st1" d="M-258.4,389.9c-0.1,0-0.3-0.1-0.4-0.2l-8-8.2c-0.2-0.2-0.2-0.5,0-0.7s0.5-0.2,0.7,0l8,8.2
+                                       c0.2,0.2,0.2,0.5,0,0.7C-258.2,389.9-258.3,389.9-258.4,389.9z" />
+                                    </g>
+                                </g>
+                                <polygon class="st1" points="-266.4,389.4 -266.4,381.2 -258.6,389.3 " />
+
+                            </svg>
+                            <svg class="progress-ring" width="100" height="100">
+                                <circle class="progress-ring__circle" stroke="#4186FB" stroke-width="4"
+                                    fill="transparent" r="42" cx="50" cy="50"
+                                    style="stroke-linecap:round; stroke-linejoin:round;" />
+                            </svg>
+                        </div>
+                </label>
+                <input type="file" name="file_input[]" id="file_input" multiple />
+                <div class="file_names"></div>
+                <p class="total_size"></p>
+                <div class="note">*Note: Total file size should be under 20MB</div>
+                <input type="submit" id="uploadSubmit" value="Upload" onclick="ajax_send()" />
+
+        </div>
+        </form>
+        <div class="success">
+            <svg version="1.1" x="0px" y="0px" viewBox="-241 332 129 129" xml:space="preserve" height="30">
+                <style type="text/css">
+                    .st0 {
+                        fill: #FFFFFF;
+                    }
+                </style>
+                <g>
+                    <path class="st0" d="M-200.5,393.1c-1.6-1.6-4.2-1.6-5.8,0c-1.6,1.6-1.6,4.2,0,5.8l18.9,18.9c0.8,0.8,1.8,1.2,2.9,1.2
+               c0.1,0,0.1,0,0.2,0c1.1-0.1,2.2-0.6,3-1.5l47.3-56.7c1.4-1.7,1.2-4.3-0.5-5.8c-1.7-1.4-4.3-1.2-5.8,0.5l-44.5,53.3
+               C-184.8,408.8-200.5,393.1-200.5,393.1z" />
+                    <path class="st0" d="M-145.9,347.3c-23-14.4-52.5-11-71.7,8.2c-22.6,22.6-22.6,59.5,0,82.1c11.3,11.3,26.2,17,41,17
+               c14.8,0,29.7-5.7,41-17c19.3-19.3,22.6-48.9,8.1-71.9c-1.2-1.9-3.7-2.5-5.6-1.3c-1.9,1.2-2.5,3.7-1.3,5.6
+               c12.5,19.8,9.6,45.2-7,61.8c-19.4,19.4-51.1,19.4-70.5,0c-19.4-19.4-19.4-51.1,0-70.5c16.6-16.5,41.9-19.4,61.7-7.1
+               c1.9,1.2,4.4,0.6,5.6-1.3C-143.4,351-144,348.5-145.9,347.3z" />
+                </g>
+            </svg>
+            <p>Success!</p>
+        </div>
+    </div>
+    <a class="back" href="../">
+        <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="34" height="34" viewBox="0 0 172 172"
+            style=" fill:#000000;">
+            <g fill="none" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt"
+                stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0"
+                font-family="none" font-weight="none" font-size="none" text-anchor="none"
+                style="mix-blend-mode: normal">
+                <path d="M0,172v-172h172v172z" fill="none"></path>
+                <g>
+                    <path
+                        d="M2.65391,86c0,-46.02344 37.32266,-83.34609 83.34609,-83.34609c46.02344,0 83.34609,37.32266 83.34609,83.34609c0,46.02344 -37.32266,83.34609 -83.34609,83.34609c-46.02344,0 -83.34609,-37.32266 -83.34609,-83.34609z"
+                        fill="#3498db"></path>
+                    <path
+                        d="M121.77734,75.85469c-15.31875,0 -30.60391,0 -45.92266,0c3.89688,-3.89687 7.79375,-7.79375 11.69063,-11.69062c9.00312,-9.00313 -5.00547,-22.91094 -14.04219,-13.87422c-9.50703,9.50703 -19.01406,19.01406 -28.52109,28.52109c-3.82969,3.82969 -3.72891,10.17891 0.06719,13.94141c9.50703,9.50703 19.01406,19.01406 28.52109,28.52109c9.00312,9.00313 22.91094,-5.00547 13.87422,-14.04219c-3.86328,-3.86328 -7.76016,-7.76016 -11.62344,-11.62344c15.25156,0 30.50312,0 45.75469,0c12.79922,0 12.9,-19.75312 0.20156,-19.75312z"
+                        fill="#ffffff"></path>
+                </g>
+            </g>
+        </svg>
+    </a>
+    <script src="js/ajax_upload.js"></script>
+</body>
+
+</html>
