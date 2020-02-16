@@ -111,8 +111,8 @@ body {
 
 .form_group svg.progress-ring {
   position: absolute;
-  top: -10px;
-  left: -10px;
+  top: -12px;
+  left: -12px;
 }
 
 .form_group circle.progress-ring__circle {
