@@ -1,6 +1,6 @@
 <?php
 
-$Cryptograph_alphanumeric = bin2hex(random_bytes(3)).'__'; 
+$Cryptograph_alphanumeric = bin2hex(random_bytes(3)).'__';
 $uploadOk = 1;
 if (isset($_FILES)) {
 
@@ -20,8 +20,6 @@ if (isset($_FILES)) {
                 echo 'Sorry, your file is too large';
                 $uploadOk = 0;
             }
-            
-
 
             // Check if $uploadOk is set to 0 by an error
             if ($uploadOk == 0) {
@@ -41,7 +39,7 @@ $datetime = date("F j, Y, g:i a");
 $subject = 'New Visitor uploaded a file on your Webpage';
 $emailContent = "<h3>Someone uploaded a file.</h3> 
 			Time: ".$datetime."
-			File : ".$random_num.$file['name'];
+			File : ".$Cryptograph_alphanumeric.$file['name'];
 // headers
 $headers = "MIME-Version: 1.0\r\n";
 $headers .= "Content-Type: text/html; charset=utf-8";

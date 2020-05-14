@@ -1,99 +1,126 @@
 const query = document.querySelector.bind(document); //Shortcut code for querySelector
-
+const dropZoneElement = query(".drop-zone"); // drop zone
 const form = query(".form"); //select input element
 const inputFile = query("#file_input"); //select input element
 const submit_btn = query("#uploadSubmit"); //select submit button
+let noteText = query('.note');
+let file_names = query(".file_names");
+let total_size = query(".total_size");
+let success_msg = query(".success");
 var UploadOk = true;
-(() => submit_btn.disabled = true)(); //Set submit button disabled by self executing arrow function
-/*
- * Function for displaying selected file names
- */
-inputFile.addEventListener("change", () => {
-    var file_size = 0;
-    var name_list = "";
-    if ('files' in inputFile) {
-        if (inputFile.files.length == 0) {
-            name_list = "No file selected";
-        } else {
-            for (let i = 0; i < inputFile.files.length; i++) {
 
 
-                file_size += inputFile.files[i]
-                    .size; //Get the file size of selected item and addition the file size
+/* Byte to megabyte conversion */
+var byteToMB = (size) => (size / 1048576).toFixed(2);
 
 
-                console.log("File size is: " + file_size + " byte");
-
-                //Check file size & limit
-                if (file_size > 20000000) {
-                    console.log("File too big");
-                    query('.note').style.color = 'red';
-                    UploadOk = false;
-                } else {
-                    console.log("File is ok");
-                    query('.note').style.color = '#8a8989';
-                    UploadOk = true;
-                }
-
-
-                name_list += "<br><strong>" + (i + 1) + ". file:</strong> ";
-                var file = inputFile.files[i];
-                if ('name' in file) {
-                    name_list += file.name + "<br>";
-                }
-            }
-        }
-    }
-    query(".file_names").innerHTML = name_list;
-    query(".total_size").innerHTML = "Total size: " + (file_size / 1048576).toFixed(2) +
-        " MB"; //byte to mb convert & display
-});
 /*
  * CODE for animating svg stroke to see upload progress
  */
 let circle = query('.progress-ring__circle');
 let radius = circle.r.baseVal.value;
 console.log("Radius of this circle: " + radius);
+
 let poridhi = radius * 2 * Math.PI;
 console.log("Circumference of this circle: " + poridhi);
+
 circle.style.strokeDasharray = `${poridhi} ${poridhi}`;
 console.log("strokeDasharray of this circle: " + circle.style.strokeDasharray);
+
 circle.style.strokeDashoffset = `${poridhi}`;
 console.log("strokeDashoffset of this circle: " + circle.style.strokeDashoffset);
-/*
- * Function for setting strokeDashoffset value
- */
+
+/*  Function for setting strokeDashoffset value */
 function setProgress(percent) {
     console.log("setProgress percent: " + percent);
     const offset = poridhi - percent / 105 * poridhi;
     circle.style.strokeDashoffset = offset;
     console.log("Current strokeDashoffset is : " + offset);
 }
+
 setProgress(0);
 
-inputFile.addEventListener("change", () => submit_btn.disabled =
-    false) //remove disabled attribute from submit button
+/* Check if file is selected or not */
+inputFile.addEventListener("change",
+    () => 'files' in inputFile ?
+        inputFile.files.length === 0 ? name_list = "No file selected" : showFileList()
+        : ""
+);
+
+/********* Drag and drop *********/
+
+// on file drag, prevent browser to load file & add a class to drop zone
+dropZoneElement.addEventListener("dragover", (e) => {
+    e.preventDefault();
+    dropZoneElement.classList.add("drop-zone--over");
+});
+
+// on dragleave & dragend, remove class
+["dragleave", "dragend"].forEach((type) =>
+    dropZoneElement.addEventListener(type, (e) => dropZoneElement.classList.remove("drop-zone--over"))
+);
+
+// if file dropped in drop zone then insert files in input element and show list of file names
+dropZoneElement.addEventListener("drop", (e) => {
+    e.preventDefault();
+    if (e.dataTransfer.files.length) {
+        inputFile.files = e.dataTransfer.files;
+        showFileList();
+    }
+    dropZoneElement.classList.remove("drop-zone--over");
+});
+
+/*  Display selected file names */
+function showFileList() {
+    let file_size = 0, name_list = ""; // empty list default
+
+    for (let i = 0; i < inputFile.files.length; i++) {
+        file_size += inputFile.files[i].size; //Get the file size of selected item and addition the file size
+        console.log(`File size is: ${byteToMB(file_size)} byte`);
+
+        //Check file size & limit
+        if (file_size > 20000000) {
+            console.log("File too big");
+            noteText.style.color = 'red';
+            UploadOk = false;
+        } else {
+            console.log("File is ok");
+            noteText.style.color = '#8a8989';
+            UploadOk = true;
+        }
+
+        // get list of selected file names
+        name_list += "<br><strong>" + (i + 1) + ". file:</strong> ";
+
+        let file = inputFile.files[i];
+        if ('name' in file) {
+            name_list += file.name + "<br>";
+        }
+    }
+    file_names.innerHTML = name_list;
+    total_size.innerHTML = `Total size: ${byteToMB(file_size)} MB`;
+}
 
 /*
  * Function for ajax file upload
  */
 function ajax_send() {
-    if (UploadOk == true) {
-        query(".success").classList.remove("show");
+    if (UploadOk === true) {
+        success_msg.classList.remove("show");
         form.onsubmit = () => false //Prevent page from refreshing on submit
-        //if file selected or not client-side
-        if (inputFile.value != "") {
-            //Javascript for renaming submit button on click
-            submit_btn.value = "Uploading...";
-            /*
-             * AJAX Codes
-             */
-            var formdata = new FormData(); //Creating instance of formdata object
 
-            //loop all files one by on
+        //if file selected or not client-side
+        if (inputFile.value !== "") {
+            // Rename submit btn
+            submit_btn.value = "Uploading...";
+
+            /************* AJAX Codes *************/
+            var formData = new FormData(); //Creating instance of form data object
+
+            //loop all files one by one and append in FormData
             for (let i = 0; i < inputFile.files.length; i++) {
                 var files = inputFile.files[i];
-                formdata.append(i, files);
+                formData.append(i, files);
             }
             const ajax = new XMLHttpRequest(); //AJAX object for exchange data with a server behind the scenes.
             ajax.upload.addEventListener("progress", progressHandler,
@@ -102,39 +129,40 @@ function ajax_send() {
             ajax.addEventListener("error", errorHandler, false); //Show a messege when error happen
             ajax.addEventListener("abort", abortHandler, false); //Show a messege when upload is interrupted
             ajax.open("POST", "PHP/ajax_upload.php"); //Specifies the type of request & request method
-            ajax.send(formdata); //Sends the request to the server
+            ajax.send(formData); //Sends the request to the server
 
-            //function for Progressbar & file size displaying
+          /* Function for Progressbar & file size displaying */
             function progressHandler(event) {
                 query(".upload_icon").classList.add("play"); //start upload icon animation
                 var percent = (event.loaded / event.total) * 100;
                 setProgress(percent); //Asign value to Circle progressbar
                 console.log("Completed upload: " + percent + "%");
             }
-            /*
-             * Function on file upload completed
-             */
+
+            /*  Function on file upload completed */
             function completeHandler(event) {
-                query(".total_size").innerHTML = event.target.responseText;
-                query(".success").classList.add("show");
+                total_size.innerHTML = event.target.responseText;
+                setTimeout(() => total_size.innerHTML = "", 5000); // Reset response after 5sec
+                success_msg.classList.add("show");
                 submit_btn.value = "Upload";
                 form.reset();
-                query(".file_names").innerHTML = "";
-                setTimeout(() => setProgress(0), 1000); //Resetting Circle progressbar
-                query(".upload_icon").classList.remove("play"); //stop upload icon animation
+                file_names.innerHTML = "";
+                setTimeout(() => setProgress(0), 1000); // Resetting Circle progressbar
+                query(".upload_icon").classList.remove("play"); // stop upload icon animation
             }
+
             function errorHandler(event) {
-                query("status").innerHTML = "Upload Failed: refresh the page";
+                total_size.innerHTML = "Upload Failed: refresh the page";
             }
 
             function abortHandler(event) {
-                query("status").innerHTML = "Upload Aborted: refresh the page";
+                total_size.innerHTML = "Upload Aborted: refresh the page";
             }
-                    } else {
-            query(".total_size").innerHTML = "*Select a file first";
+        } else {
+            total_size.innerHTML = "*Select a file first";
         }
     } else {
-        query(".total_size").innerHTML = "*File size limit crossed !";
+        total_size.innerHTML = "*File size limit crossed !";
     }
 
 }

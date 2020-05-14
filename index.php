@@ -96,7 +96,7 @@
     }
 
     div a img {
-      visibility: hidden; //remove branding of 000webhost
+      visibility: hidden; /*remove branding of 000webhost*/
     }
   </style>
 </head>
@@ -104,6 +104,7 @@
 <body>
   <div class="wrapper">
     <h1>Direct File Links</h1>
+     <!--  Check folder and read content -->
     <?php 
         $resource = opendir("upload/Uploaded_files");
         while (($entry = readdir($resource)) !== FALSE) {

@@ -22,6 +22,7 @@ body {
   font-family: 'Exo', 'Hind Siliguri', sans-serif;
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
+  transition: all 0.5s;
 }
 
 .wrapper {
@@ -233,4 +234,14 @@ body {
   position: fixed;
   top: 20px;
   left: 20px;
+}
+
+.drop-zone {
+  border: 2px dashed lightgray;
+}
+.drop-zone--over{
+  border-width: 4px;
+  border-color: dodgerblue;
+  transition: all 0.5s;
+  background-color: #F2F2F2;
 }
