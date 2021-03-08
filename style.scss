@@ -1,0 +1,77 @@
+body {
+   margin: 0;
+   padding: 0;
+}
+.page_wrapper {
+   padding: 10px 20px;
+   h1 {
+      margin-top: 0;
+      text-align: center;
+      position: relative;
+      color: white;
+      padding: 5px 0;
+      &::after {
+         content: '';
+         position: absolute;
+         background: #f44336;
+         height: 100%;
+         width: 75%;
+         left: 13%;
+         z-index: -1;
+         top: 0;
+         transform: skewX(10deg);
+         box-shadow: 3px 3px 7px #f44336, -20px -20px 60px #ffffff;
+      }
+   }
+}
+.file_list {
+   display: flex;
+   flex-wrap: wrap;
+   justify-content: center;
+   .content_file {
+      text-decoration: none;
+      color: inherit;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 100px;
+      border: 1px solid transparent;
+      margin: 0px 5px;
+      padding: 5px;
+      overflow: hidden;
+      transition: all 0.5s ease-in-out;
+      position: relative;
+      img {
+         width: 70px;
+         height: auto;
+         max-width: 100%;
+      }
+      .file_name {
+         font-family: 'Katibeh', cursive;
+         font-size: 20px;
+         display: -webkit-box;
+         -webkit-line-clamp: 2;
+         -webkit-box-orient: vertical;
+         overflow: hidden;
+         word-break: break-all;
+         height: 40px;
+         line-height: 0.9;
+      }
+      &::after {
+         content: 'copied!';
+         position: absolute;
+         top: -20px;
+         color: white;
+         background: #f44336;
+         width: 100%;
+         text-align: center;
+         transition: all 0.5s ease-in-out;
+      }
+      &.copied {
+         border-color: #f44336;
+         &::after {
+            top: 0px;
+         }
+      }
+   }
+}
