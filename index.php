@@ -18,7 +18,7 @@
     <!--  Check folder and read content -->
     <div class="file_list">
       <?php
-      $url = '//' . $_SERVER['HTTP_HOST'];
+      $url = '//' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
       $resource = getcwd() . '/upload/shared_files';
       foreach (glob($resource . '/*.*') as $file) {
         $filename = pathinfo($file, PATHINFO_BASENAME);
@@ -26,7 +26,7 @@
         $ext = pathinfo($file, PATHINFO_EXTENSION);
 
         echo "
-        <a class='content_file' href='{$url}/download.php?file={$filenameEncoded}'>
+        <a class='content_file' href='{$url}download.php?file={$filenameEncoded}'>
           <img src='file_icons/{$ext}.png' alt='{$filename}'>
           <span class='file_name'>{$filename}</span>
         </a>
