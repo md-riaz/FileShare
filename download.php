@@ -13,7 +13,7 @@ if (file_exists($file_path)) {
   flush(); // Flush system output buffer
   readfile($file_path);
   die();
-} else {
-  http_response_code(404);
-  die();
 }
+
+http_response_code(404);
+die();

@@ -3,24 +3,27 @@ body {
    padding: 0;
 }
 .page_wrapper {
-   padding: 10px 20px;
    h1 {
-      margin-top: 0;
+      margin-top: 10px;
       text-align: center;
       position: relative;
       color: white;
       padding: 5px 0;
       &::after {
-         content: '';
+         content: "";
          position: absolute;
          background: #f44336;
          height: 100%;
-         width: 75%;
-         left: 13%;
+         width: 80%;
+         max-width: 100%;
+         left: 50%;
          z-index: -1;
          top: 0;
-         transform: skewX(10deg);
-         box-shadow: 3px 3px 7px #f44336, -20px -20px 60px #ffffff;
+         transform: translateX(-50%) skewX(
+                         10deg
+         );
+         box-shadow: 2px 5px 7px #bdbdbd, -20px -20px 60px #ffffff;
+
       }
    }
 }
@@ -36,7 +39,7 @@ body {
       align-items: center;
       width: 100px;
       border: 1px solid transparent;
-      margin: 0px 5px;
+      margin: 0 5px;
       padding: 5px;
       overflow: hidden;
       transition: all 0.5s ease-in-out;
@@ -45,6 +48,7 @@ body {
          width: 70px;
          height: auto;
          max-width: 100%;
+         padding: 5px 0;
       }
       .file_name {
          font-family: 'Katibeh', cursive;
@@ -70,8 +74,51 @@ body {
       &.copied {
          border-color: #f44336;
          &::after {
-            top: 0px;
+            top: 0;
          }
       }
+      &::before {
+         content: "";
+         position: absolute;
+         left: -50%;
+         background: rgba(255, 255, 255, 0.5);
+         width: 60px;
+         height: 100%;
+         top: 0;
+         filter: blur(30px);
+         transform: translateX(-10px) skewX(-15deg);
+      }
+      &:hover::before {
+         transform: translateX(300px) skewX(-15deg);
+         transition: 0.7s;
+      }
+   }
+}
+.upload_btn {
+   border-radius: 50px;
+   color: white;
+   background: #2196f3;
+   padding: 15px 25px;
+   text-decoration: none;
+   font-family: monospace;
+   position: fixed;
+   bottom: 30px;
+   right: 30px;
+   font-size: 16px;
+   font-weight: bold;
+   &::after {
+      content: "";
+      position: absolute;
+      left: -50%;
+      background: rgba(255, 255, 255, 0.5);
+      width: 60px;
+      height: 100%;
+      top: 0;
+      filter: blur(30px);
+      transform: translateX(-10px) skewX(-15deg);
+   }
+   &:hover::after {
+         transform: translateX(300px) skewX(-15deg);
+         transition: 0.7s;
    }
 }

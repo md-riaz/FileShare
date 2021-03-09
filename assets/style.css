@@ -1,0 +1,124 @@
+body {
+  margin: 0;
+  padding: 0;
+}
+
+.page_wrapper h1 {
+  margin-top: 10px;
+  text-align: center;
+  position: relative;
+  color: white;
+  padding: 5px 0;
+}
+.page_wrapper h1::after {
+  content: "";
+  position: absolute;
+  background: #f44336;
+  height: 100%;
+  width: 80%;
+  max-width: 100%;
+  left: 50%;
+  z-index: -1;
+  top: 0;
+  transform: translateX(-50%) skewX(10deg);
+  box-shadow: 2px 5px 7px #bdbdbd, -20px -20px 60px #ffffff;
+}
+
+.file_list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.file_list .content_file {
+  text-decoration: none;
+  color: inherit;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100px;
+  border: 1px solid transparent;
+  margin: 0 5px;
+  padding: 5px;
+  overflow: hidden;
+  transition: all 0.5s ease-in-out;
+  position: relative;
+}
+.file_list .content_file img {
+  width: 70px;
+  height: auto;
+  max-width: 100%;
+  padding: 5px 0;
+}
+.file_list .content_file .file_name {
+  font-family: "Katibeh", cursive;
+  font-size: 20px;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  word-break: break-all;
+  height: 40px;
+  line-height: 0.9;
+}
+.file_list .content_file::after {
+  content: "copied!";
+  position: absolute;
+  top: -20px;
+  color: white;
+  background: #f44336;
+  width: 100%;
+  text-align: center;
+  transition: all 0.5s ease-in-out;
+}
+.file_list .content_file.copied {
+  border-color: #f44336;
+}
+.file_list .content_file.copied::after {
+  top: 0;
+}
+.file_list .content_file::before {
+  content: "";
+  position: absolute;
+  left: -50%;
+  background: rgba(255, 255, 255, 0.5);
+  width: 60px;
+  height: 100%;
+  top: 0;
+  filter: blur(30px);
+  transform: translateX(-10px) skewX(-15deg);
+}
+.file_list .content_file:hover::before {
+  transform: translateX(300px) skewX(-15deg);
+  transition: 0.7s;
+}
+
+.upload_btn {
+  border-radius: 50px;
+  color: white;
+  background: #2196f3;
+  padding: 15px 25px;
+  text-decoration: none;
+  font-family: monospace;
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  font-size: 16px;
+  font-weight: bold;
+}
+.upload_btn::after {
+  content: "";
+  position: absolute;
+  left: -50%;
+  background: rgba(255, 255, 255, 0.5);
+  width: 60px;
+  height: 100%;
+  top: 0;
+  filter: blur(30px);
+  transform: translateX(-10px) skewX(-15deg);
+}
+.upload_btn:hover::after {
+  transform: translateX(300px) skewX(-15deg);
+  transition: 0.7s;
+}
+
+/*# sourceMappingURL=style.css.map */
