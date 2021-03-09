@@ -1,3 +1,58 @@
+window.onload = function () {
+    // Get all the elements that match the selector
+    let fileLinks = document.querySelectorAll('.content_file');
+
+    if (fileLinks.length > 0) {
+        for (let link of fileLinks) {
+            link.addEventListener("click", function (e) {
+                e.preventDefault();
+                e.stopPropagation();
+                copyToClipboard(this.dataset.href);
+                this.classList.toggle('copied');
+                setTimeout(() => {
+                    // toggle back after 1 second
+                    this.classList.toggle('copied');
+                }, 2000)
+            })
+        }
+    }
+
+    function copyToClipboard(copyText) {
+        var dummy = document.createElement("input"); // Create a dummy input to copy the string array inside it
+        document.body.appendChild(dummy); // Add it to the document
+        dummy.value = copyText;
+        dummy.select(); // Select it
+        document.execCommand("copy"); // Copy its contents
+        document.body.removeChild(dummy); // Remove it as its not needed anymore
+    }
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 const query = document.querySelector.bind(document); //Shortcut code for querySelector
 const dropZoneElement = query(".drop-zone"); // drop zone
 const form = query(".form"); //select input element

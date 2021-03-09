@@ -14,27 +14,32 @@
 
 <body>
 <div class="page_wrapper">
-    <h1>Direct File Links</h1>
+    <h1>FileShare List</h1>
     <!--  Check folder and read content -->
     <div class="file_list">
 		<?php
-		$url = '//' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
+		$url = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http") . "://{$_SERVER['HTTP_HOST']}{$_SERVER['REQUEST_URI']}";
 		$resource = getcwd() . '/upload/shared_files';
 		$files = glob($resource . '/*.*');
 		// sorting files with modified date
 		usort($files, function ($file1, $file2) {
 			return filemtime($file1) < filemtime($file2);
 		});
+		$max_upload = (min((int) ini_get('post_max_size'), (int) ini_get('upload_max_filesize')) * 1024 * 1024); // max upload size in bits
 
 		foreach ($files as $file) {
 			$filename = pathinfo($file, PATHINFO_BASENAME);
-			$filenameEncoded = str_rot13($filename);
+			$filenameEncoded = urlencode(str_rot13($filename));
+			$filesize = formatSizeUnits(filesize($file));
 			$ext = pathinfo($file, PATHINFO_EXTENSION);
-
+			$imgExt = ['jpg', 'jpeg', 'jfif', 'pjpeg', 'pjp', 'png', 'gif', 'bmp', 'svg', 'webp'];
+			$previewUrl = (in_array($ext, $imgExt)) ? "upload/shared_files/{$filename}" : "file_icons/{$ext}.png";
+			$hrefUrl = ($ext = 'php' ? $url.'download.php?file='.$filenameEncoded : $url.'/upload/shared_files/'.$filename);
 			echo "
-                    <a class='content_file' href='{$url}upload/shared_files/{$filename}' data-href='{$url}download.php?file={$filenameEncoded}'>
-                      <img src='file_icons/{$ext}.png' alt='{$filename}'>
+                    <a class='content_file' href='{$hrefUrl}' data-href='{$url}download.php?file={$filenameEncoded}' title='{$filename}'>
+                      <img src='{$previewUrl}' alt='{$filename}'>
                       <span class='file_name'>{$filename}</span>
+                      <span class='file_size'>{$filesize}</span>
                     </a>
                   ";
 		}
@@ -42,36 +47,18 @@
     </div>
 </div>
 <a class="upload_btn" href="upload/">Upload Now</a>
-<script>
-    window.onload = function () {
-        // Get all the elements that match the selector
-        let fileLinks = document.querySelectorAll('.content_file');
-
-        for (let link of fileLinks) {
-            link.addEventListener("click", function (e) {
-                e.preventDefault();
-                e.stopPropagation();
-                copyToClipboard(this.dataset.href);
-                this.classList.toggle('copied');
-                setTimeout(() => {
-                    // toggle back after 1 second
-                    this.classList.toggle('copied');
-                }, 2000)
-            })
-
-        }
-
-        function copyToClipboard(copyText) {
-            var dummy = document.createElement("input"); // Create a dummy input to copy the string array inside it
-            document.body.appendChild(dummy); // Add it to the document
-            dummy.value = copyText;
-            dummy.select(); // Select it
-            document.execCommand("copy"); // Copy its contents
-            document.body.removeChild(dummy); // Remove it as its not needed anymore
-        }
-
-    }
-</script>
+<script src="assets/app.js"></script>
 </body>
 
 </html>
+
+<?php
+function formatSizeUnits($size)
+{
+	$units = ['B', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'];
+	$power = $size > 0 ? floor(log($size, 1024)) : 0;
+
+	return number_format($size / (1024 ** $power), 2, '.', ',') . ' ' . $units[$power];
+}
+
+?>

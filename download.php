@@ -1,5 +1,5 @@
 <?php
-$file_name =  str_rot13($_GET['file']);
+$file_name =  urldecode(str_rot13($_GET['file']));
 $file_path = getcwd() . '/upload/shared_files/' . $file_name;
 
 if (file_exists($file_path)) {

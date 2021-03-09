@@ -3,6 +3,9 @@ body {
   padding: 0;
 }
 
+.page_wrapper {
+  padding: 5px 0;
+}
 .page_wrapper h1 {
   margin-top: 10px;
   text-align: center;
@@ -38,7 +41,7 @@ body {
   width: 100px;
   border: 1px solid transparent;
   margin: 0 5px;
-  padding: 5px;
+  padding: 10px 5px;
   overflow: hidden;
   transition: all 0.5s ease-in-out;
   position: relative;
@@ -46,22 +49,32 @@ body {
 .file_list .content_file img {
   width: 70px;
   height: auto;
+  max-height: 70px;
   max-width: 100%;
   padding: 5px 0;
+  object-fit: cover;
+  object-position: top;
+  border-radius: 10px;
 }
 .file_list .content_file .file_name {
   font-family: "Katibeh", cursive;
   font-size: 20px;
   display: -webkit-box;
-  -webkit-line-clamp: 2;
+  -webkit-line-clamp: 1;
   -webkit-box-orient: vertical;
   overflow: hidden;
-  word-break: break-all;
-  height: 40px;
-  line-height: 0.9;
+}
+.file_list .content_file .file_size {
+  position: absolute;
+  font-size: 10px;
+  font-weight: 100;
+  bottom: -2px;
+  color: #989898;
+  margin: 0;
 }
 .file_list .content_file::after {
-  content: "copied!";
+  font-family: monospace;
+  content: "link copied!";
   position: absolute;
   top: -20px;
   color: white;
