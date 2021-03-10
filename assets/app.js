@@ -26,6 +26,45 @@ window.onload = function () {
         document.body.removeChild(dummy); // Remove it as its not needed anymore
     }
 
+    /* ajax file upload section */
+    let fileCatcher = document.getElementById('file_catcher');
+    let fileInput = document.getElementById('file_input');
+    let fileListDisplay = document.getElementById('file_list_display');
+    let fileList = [];
+    let renderFileList, sendFile;
+    let postUrl = '';
+
+    fileInput.addEventListener('change', function (event) {
+        fileList = [];
+        for (let i = 0; i < fileInput.files.length; i++) {
+            fileList.push(fileInput.files[i]);
+        }
+    });
+
+    fileCatcher.addEventListener('submit', function (event) {
+       event.preventDefault();
+       fileList.forEach(function (file) {
+          sendFile(file);
+       });
+    });
+
+    renderFileList = function () {
+        fileListDisplay.innerHTML = '';
+        fileList.forEach(function (file, index) {
+            let fileDisplayEl = document.createElement('p');
+            fileDisplayEl.innerHTML = (index + 1) + ': ' + file.name;
+            fileDisplayEl.appendChild(fileDisplayEl);
+        });
+    }
+
+    sendFile = function (file) {
+        let formData = new FormData();
+        let request = new XMLHttpRequest();
+
+        formData.set('file', file);
+        request.open('POST',postUrl);
+        request.send(formData);
+    }
 }
 
 
