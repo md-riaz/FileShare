@@ -12,7 +12,7 @@ window.onload = function () {
     }).then(function (data) {
 // This is the JSON from our response
         data.forEach(function (file) {
-            output += `
+            file_list.innerHTML += `
                     <a class='content_file' href="${file['hrefUrl']}" data-href="${file['downloadUrl']}" title="${file['filename']}">
                         <img src="${file['previewUrl']}" alt="${file['filename']}">
                         <span class='file_name'>${file['filename']}</span>
@@ -20,7 +20,6 @@ window.onload = function () {
                     </a> 
                 `;
         });
-        file_list.innerHTML = output;
         fileLinksListener();
     }).catch(function (err) {
 // There was an error
