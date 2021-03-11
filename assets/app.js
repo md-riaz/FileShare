@@ -1,21 +1,52 @@
 window.onload = function () {
-    // Get all the elements that match the selector
-    let fileLinks = document.querySelectorAll('.content_file');
+    let output = '';
+    let file_list = document.querySelector('.file_list');
+// fetching json data from server
+    fetch('https://riaz.dev.alpha.net.bd/FileShare/upload/filelist.php').then(function (response) {
+// The API call was successful!
+        if (response.ok) {
+            return response.json();
+        } else {
+            return Promise.reject(response);
+        }
+    }).then(function (data) {
+// This is the JSON from our response
+        data.forEach(function (file) {
+            output += `
+                    <a class='content_file' href="${file['hrefUrl']}" data-href="${file['downloadUrl']}" title="${file['filename']}">
+                        <img src="${file['previewUrl']}" alt="${file['filename']}">
+                        <span class='file_name'>${file['filename']}</span>
+                        <span class='file_size'>${file['size']}</span>
+                    </a> 
+                `;
+        });
+        file_list.innerHTML = output;
+        fileLinksListener();
+    }).catch(function (err) {
+// There was an error
+        console.warn('Something went wrong.', err);
+    });
 
-    if (fileLinks.length > 0) {
-        for (let link of fileLinks) {
-            link.addEventListener("click", function (e) {
-                e.preventDefault();
-                e.stopPropagation();
-                copyToClipboard(this.dataset.href);
-                this.classList.toggle('copied');
-                setTimeout(() => {
-                    // toggle back after 1 second
+    function fileLinksListener() {
+// Get all the elements that match the selector
+        let fileLinks = document.querySelectorAll('.content_file');
+
+        if (fileLinks.length > 0) {
+            for (let link of fileLinks) {
+                link.addEventListener("click", function (e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    copyToClipboard(this.dataset.href);
                     this.classList.toggle('copied');
-                }, 2000)
-            })
+                    setTimeout(() => {
+                        // toggle back after 1 second
+                        this.classList.toggle('copied');
+                    }, 2000)
+                })
+            }
         }
     }
+
 
     let copyToClipboard = function (copyText) {
         var dummy = document.createElement("input"); // Create a dummy input to copy the string array inside it
@@ -39,9 +70,9 @@ window.onload = function () {
     };
 
     var RandomID = function () {
-        // Math.random should be unique because of its seeding algorithm.
-        // Convert it to base 36 (numbers + letters), and grab the first 9 characters
-        // after the decimal.
+// Math.random should be unique because of its seeding algorithm.
+// Convert it to base 36 (numbers + letters), and grab the first 9 characters
+// after the decimal.
         return '_' + Math.random().toString(36).substr(2, 9);
     };
 
@@ -55,33 +86,37 @@ window.onload = function () {
     let maxSize = 20000000; //in byte
     let xhrMessage = [];
 
-    fileInput.addEventListener('change', function (event) {
-        fileList = [];
-        for (let i = 0; i < fileInput.files.length; i++) {
-            fileList.push(fileInput.files[i]);
-        }
-    });
-
-    fileCatcher.addEventListener('submit', function (event) {
-        event.preventDefault();
-        fileList.forEach(function (file) {
-            file.id = RandomID();
-
-            if (file.size > maxSize) {
-                console.log('File skipped because file exceeds');
-            } else {
-                sendFile(file);
+    if (fileInput) {
+        fileInput.addEventListener('change', function (event) {
+            fileList = [];
+            for (let i = 0; i < fileInput.files.length; i++) {
+                fileList.push(fileInput.files[i]);
             }
-
         });
-    });
+    }
+
+    if (fileCatcher) {
+        fileCatcher.addEventListener('submit', function (event) {
+            event.preventDefault();
+            fileList.forEach(function (file) {
+                file.id = RandomID();
+
+                if (file.size > maxSize) {
+                    console.log('File skipped because file exceeds');
+                } else {
+                    sendFile(file);
+                }
+
+            });
+        });
+    }
 
     renderFileList = function () {
         fileListDisplay.innerHTML = '';
         fileList.forEach(function (file, index) {
-            // let fileDisplayEl = document.createElement('p');
-            // fileDisplayEl.innerHTML = (index + 1) + ': ' + file.name;
-            // fileDisplayEl.appendChild(fileDisplayEl);
+// let fileDisplayEl = document.createElement('p');
+// fileDisplayEl.innerHTML = (index + 1) + ': ' + file.name;
+// fileDisplayEl.appendChild(fileDisplayEl);
         });
     }
 
@@ -128,8 +163,8 @@ window.onload = function () {
         console.log(xhrMessage)
     }
 
-    // abort specific file id xhr
-    let abortRequest = function (fileId){
+// abort specific file id xhr
+    let abortRequest = function (fileId) {
         requests[fileId].abort();
     }
 
