@@ -1,5 +1,6 @@
 <?php
-$file_name =  urldecode(str_rot13($_GET['file']));
+header('Access-Control-Allow-Origin: *');
+$file_name =  urldecode($_GET['file']);
 $file_path = getcwd() . '/upload/shared_files/' . $file_name;
 
 if (file_exists($file_path)) {

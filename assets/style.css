@@ -3,6 +3,11 @@ body {
   padding: 0;
 }
 
+img {
+  max-width: 100%;
+  height: auto;
+}
+
 .page_wrapper {
   padding: 5px 0;
 }
@@ -132,6 +137,182 @@ body {
 .upload_btn:hover::after {
   transform: translateX(300px) skewX(-15deg);
   transition: 0.7s;
+}
+
+.upload_wrapper {
+  font-family: "Open Sans", sans-serif;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  min-height: 100vh;
+  background-color: #0f015e;
+  background-image: radial-gradient(at 50% 100%, rgba(123, 22, 255, 0.75), #0f015e);
+  color: #262626;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.upload_wrapper .upload_card_wrapper {
+  background: white;
+  padding: 0 30px;
+  max-width: 700px;
+  width: 100%;
+  position: relative;
+}
+.upload_wrapper .upload_card_wrapper .backlist {
+  position: absolute;
+  padding: 5px 25px;
+  background: #81c548;
+  text-align: center;
+  color: white;
+  border-radius: 25px;
+  top: 70px;
+  text-decoration: none;
+}
+.upload_wrapper h4 {
+  text-align: center;
+  margin: 0;
+  padding: 25px 0;
+  border-bottom: 2px solid lightgray;
+  font-size: 25px;
+  color: #333;
+}
+.upload_wrapper .flex-container {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+}
+@media screen and (min-width: 650px) {
+  .upload_wrapper .flex-container {
+    flex-direction: row;
+  }
+}
+.upload_wrapper .drop_area_container {
+  height: 250px;
+  display: block;
+  border: 2px dashed lightgray;
+  margin-top: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+.upload_wrapper .upload_side {
+  flex-shrink: 0;
+  flex-basis: 250px;
+}
+.upload_wrapper .files_side {
+  padding: 30px;
+  padding-right: 0;
+  flex-grow: 1;
+}
+.upload_wrapper .files_side h5 {
+  margin: 0;
+  margin-top: -5px;
+  margin-bottom: 15px;
+  font-size: 15px;
+  color: #555;
+}
+.upload_wrapper .upload_icon svg {
+  width: 35px;
+  fill: #81c548;
+}
+.upload_wrapper span.file_chooser {
+  background: #81c548;
+  color: white;
+  padding: 7px 30px;
+  border-radius: 5px;
+  border: 1px solid #5c932f;
+  display: block;
+  width: 100px;
+  text-align: center;
+  margin: 30px auto;
+  cursor: pointer;
+}
+.upload_wrapper #file_list_display {
+  max-height: 305px;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+.upload_wrapper #file_list_display .list_item {
+  display: flex;
+  padding: 15px 0;
+  border-bottom: 1px solid lightgray;
+}
+.upload_wrapper #file_list_display .list_item:first-child {
+  padding-top: 0;
+}
+.upload_wrapper #file_list_display .list_item:last-child {
+  border-bottom: none;
+}
+.upload_wrapper #file_list_display .list_item.sizeExceeded .item_size {
+  color: #cf3917;
+}
+.upload_wrapper #file_list_display .list_item.error .item_title, .upload_wrapper #file_list_display .list_item.error .item.percent {
+  color: #cf3917;
+}
+.upload_wrapper #file_list_display .img img {
+  width: 40px;
+  max-height: 55px;
+  margin-right: 15px;
+  object-fit: cover;
+  object-position: center;
+  border-radius: 3px;
+}
+.upload_wrapper #file_list_display .contents {
+  width: 100%;
+}
+.upload_wrapper #file_list_display .contents .top {
+  display: flex;
+}
+.upload_wrapper #file_list_display .contents .item_title {
+  max-width: 200px;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
+.upload_wrapper #file_list_display .contents .item_size {
+  margin: 0 10px;
+  color: gray;
+  font-size: 15px;
+  line-height: 1.5;
+}
+.upload_wrapper #file_list_display .contents .item_close,
+.upload_wrapper #file_list_display .contents .item_remove {
+  margin-left: auto;
+  margin-right: 5px;
+  cursor: pointer;
+}
+.upload_wrapper #file_list_display .contents .item_close svg,
+.upload_wrapper #file_list_display .contents .item_remove svg {
+  width: 10px;
+  fill: #777;
+}
+.upload_wrapper #file_list_display .contents .bottom {
+  display: flex;
+  justify-content: space-between;
+}
+.upload_wrapper #file_list_display .contents .bottom .percent,
+.upload_wrapper #file_list_display .contents .bottom .speed_status {
+  color: gray;
+  font-size: 15px;
+  line-height: 1.5;
+}
+.upload_wrapper #file_list_display .contents .bottom .percent span,
+.upload_wrapper #file_list_display .contents .bottom .speed_status span {
+  color: #81c548;
+}
+.upload_wrapper #file_list_display .progress_bar {
+  height: 4px;
+  background: lightgrey;
+  margin: 5px 0;
+  margin-left: 1px;
+}
+.upload_wrapper #file_list_display .progress_bar .progress {
+  height: 100%;
+  background: #3db9ff;
+  border-radius: 10px;
+  width: 0%;
 }
 
 /*# sourceMappingURL=style.css.map */

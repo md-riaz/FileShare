@@ -1,10 +1,8 @@
 <?php
+header('Access-Control-Allow-Origin: *');
 require_once('PHPUploader.php');
-echo '<pre>';
-print_r($_FILES);
-echo '</pre>';
-exit;
-$unique_id = $_POST['unique_id'];
+
+$unique_id = $_POST['id'];
 $uploader = new PHPUploader();
 $uploader->setDir('shared_files/');
 

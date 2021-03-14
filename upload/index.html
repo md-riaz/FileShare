@@ -15,50 +15,45 @@
     <meta name="fb:admins" content="mdriaz.wd">
     <meta name="og:type" content="website">
     <link rel="icon" type="image/ico" sizes="16x16" href="../favicon.png">
-    <link href="https://fonts.googleapis.com/css?family=Exo:300,400,400i,500,700&display=swap"
-          rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400&display=swap" rel="stylesheet">
     <title>File Upload</title>
     <link rel="stylesheet" href="../assets/style.css">
 </head>
 
 <body>
-<div class="wrapper drop-zone">
-    <div class="form_group">
-        <div class="form_heading"><b>Drag & Drop or Click icon</b></div>
+<div class="upload_wrapper">
 
+    <div class="upload_card_wrapper">
+        <h4>File Upload</h4>
+        <a href="../" class="backlist">List</a>
+        <div class="flex-container">
+            <div class="upload_side">
+                <form action="" method="POST" enctype="multipart/form-data" id="file_catcher">
+                    <label for="file_input">
+                    <span class="drop_area_container">
+                        <span class="upload_icon">
+                            <svg viewBox="0 -24 512 512"><defs/><path d="M413.5 129a160.2 160.2 0 00-314.2-.2 112.1 112.1 0 0013 223.5h80a16 16 0 100-32h-80a80.1 80.1 0 11.9-160.2A16 16 0 00129 146a128.2 128.2 0 01254.6 0 17 17 0 0016.9 14.2 80.1 80.1 0 110 160.2h-80.1a16 16 0 100 32h80a112.1 112.1 0 0013-223.4zm0 0"/><path d="M313 287.5a16 16 0 1022.7-22.7l-68-68a16 16 0 00-22.6 0l-68 68a16 16 0 1022.7 22.7l40.6-40.7v201.7a16 16 0 1032 0V246.8zm0 0"/></svg>
+                        </span>
+                        <span class="upload_text">Drag files to upload</span>
+                    </span>
+                        <span class="file_chooser">Choose File</span>
+                        <input type="file" name="file_input" id="file_input" multiple hidden/>
+                    </label>
 
-        <div class="upload_field">
-            <form action="upload.php" method="POST" enctype="multipart/form-data" id="file_catcher">
-                <label for="file_input">
-                    <input type="file" name="file_input" id="file_input" multiple/>
-                </label>
-                <input type="submit" value="Upload"/>
-            </form>
+                </form>
+            </div>
+            <div class="files_side">
+                <h5>Uploading List</h5>
+                <div id="file_list_display">
+                    <span class="insert_before" hidden></span>
+                </div>
+            </div>
         </div>
-
-
     </div>
-</div>
-<a class="back" href="../">
-    <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="34" height="34" viewBox="0 0 172 172"
-         style=" fill:#000000;">
-        <g fill="none" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt"
-           stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0"
-           font-family="none" font-weight="none" font-size="none" text-anchor="none"
-           style="mix-blend-mode: normal">
-            <path d="M0,172v-172h172v172z" fill="none"></path>
-            <g>
-                <path
-                        d="M2.65391,86c0,-46.02344 37.32266,-83.34609 83.34609,-83.34609c46.02344,0 83.34609,37.32266 83.34609,83.34609c0,46.02344 -37.32266,83.34609 -83.34609,83.34609c-46.02344,0 -83.34609,-37.32266 -83.34609,-83.34609z"
-                        fill="#3498db"></path>
-                <path
-                        d="M121.77734,75.85469c-15.31875,0 -30.60391,0 -45.92266,0c3.89688,-3.89687 7.79375,-7.79375 11.69063,-11.69062c9.00312,-9.00313 -5.00547,-22.91094 -14.04219,-13.87422c-9.50703,9.50703 -19.01406,19.01406 -28.52109,28.52109c-3.82969,3.82969 -3.72891,10.17891 0.06719,13.94141c9.50703,9.50703 19.01406,19.01406 28.52109,28.52109c9.00312,9.00313 22.91094,-5.00547 13.87422,-14.04219c-3.86328,-3.86328 -7.76016,-7.76016 -11.62344,-11.62344c15.25156,0 30.50312,0 45.75469,0c12.79922,0 12.9,-19.75312 0.20156,-19.75312z"
-                        fill="#ffffff"></path>
-            </g>
-        </g>
-    </svg>
-</a>
- <script src="../assets/app.js"></script>
+
+
+    <script src="../assets/app.js"></script>
 </body>
 
 </html>
