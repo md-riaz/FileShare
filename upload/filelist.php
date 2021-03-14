@@ -12,7 +12,10 @@ $fileList = [];
 $url = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http") . "://{$_SERVER['HTTP_HOST']}{$_SERVER['REQUEST_URI']}";
 $resource = getcwd() . '/shared_files';
 $files = glob($resource . '/*.*');
-
+// sorting files with modified date
+usort($files, function ($file1, $file2) {
+	return filemtime($file1) < filemtime($file2);
+});
 $max_upload = (min((int) ini_get('post_max_size'), (int) ini_get('upload_max_filesize')) * 1024 * 1024); // max upload size in bits
 
 foreach ($files as $file) {
