@@ -22,7 +22,7 @@ window.onload = function () {
                         <span class='file_size'>${file['size']}</span>
                     </a> 
                 `;
-                file_list.insertAdjacentHTML('afterbegin', item);
+                file_list.insertAdjacentHTML('beforeend', item);
             });
             fileLinksListener();
         }).catch(function (err) {
