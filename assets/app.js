@@ -16,16 +16,14 @@ window.onload = function () {
                 let downloadUrl = window.btoa(file['downloadUrl']);
                 let hrefUrl = window.btoa(file['hrefUrl']);
                 let item =
-                    `
-                    < a class = 'content_file'
+                    `<a class = 'content_file'
                     href = "${window.location.href}view/?f=${hrefUrl}"
                     data-href = "${window.location.href}download/?d=${downloadUrl}"
                     title = "${file['filename']}" >
                         <img src="${file['previewUrl']}" alt="${file['filename']}">
                         <span class='file_name'>${file['filename']}</span>
                         <span class='file_size'>${file['size']}</span>
-                    </a> 
-                `;
+                    </a>`;
                 file_list.insertAdjacentHTML('beforeend', item);
             });
             fileLinksListener();
