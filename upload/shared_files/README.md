@@ -1,1 +1,0 @@
-File Uploader is my hobby project to quickly upload mini files and share their public links on the web. This site is made purely on JavaScript and PHP for backend. The power of asynchronous file uploading is here with support of Drag & Drop. I have made it a link store where I upload mini files and this generates a shareable download link.

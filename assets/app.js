@@ -4,19 +4,23 @@ window.onload = function () {
     if (file_list) {
         // fetching json data from server
         fetch('https://riaz.dev.alpha.net.bd/FileShare/upload/filelist.php').then(function (response) {
-// The API call was successful!
+            // The API call was successful!
             if (response.ok) {
                 return response.json();
             } else {
                 return Promise.reject(response);
             }
         }).then(function (data) {
-// This is the JSON from our response
+            // This is the JSON from our response
             data.forEach(function (file) {
-                let url = window.btoa(file['downloadUrl']);
+                let downloadUrl = window.btoa(file['downloadUrl']);
+                let hrefUrl = window.btoa(file['hrefUrl']);
                 let item =
                     `
-                    <a class='content_file' href="${file['hrefUrl']}" data-href="${window.location.href}download/?d=${url}" title="${file['filename']}">
+                    < a class = 'content_file'
+                    href = "${window.location.href}view/?f=${hrefUrl}"
+                    data-href = "${window.location.href}download/?d=${downloadUrl}"
+                    title = "${file['filename']}" >
                         <img src="${file['previewUrl']}" alt="${file['filename']}">
                         <span class='file_name'>${file['filename']}</span>
                         <span class='file_size'>${file['size']}</span>
@@ -26,13 +30,13 @@ window.onload = function () {
             });
             fileLinksListener();
         }).catch(function (err) {
-// There was an error
+            // There was an error
             console.warn('Something went wrong.', err);
         });
     }
 
     function fileLinksListener() {
-// Get all the elements that match the selector
+        // Get all the elements that match the selector
         let fileLinks = document.querySelectorAll('.content_file');
 
         if (fileLinks.length > 0) {
@@ -74,9 +78,9 @@ window.onload = function () {
     };
 
     var RandomID = function () {
-// Math.random should be unique because of its seeding algorithm.
-// Convert it to base 36 (numbers + letters), and grab the first 9 characters
-// after the decimal.
+        // Math.random should be unique because of its seeding algorithm.
+        // Convert it to base 36 (numbers + letters), and grab the first 9 characters
+        // after the decimal.
         return '_' + Math.random().toString(36).substr(2, 9);
     };
 
@@ -98,7 +102,7 @@ window.onload = function () {
             dropZoneElement.classList.add("drop-zone--over");
         });
 
-// on dragleave & dragend, remove class
+        // on dragleave & dragend, remove class
         ["dragleave", "dragend"].forEach((type) =>
             dropZoneElement.addEventListener(type, (e) => dropZoneElement.classList.remove("drop-zone--over"))
         );
@@ -207,10 +211,10 @@ window.onload = function () {
             completeHandler(event, file) // execute function when upload is completed
         });
         requests[file.id].addEventListener("error", function (event) {
-            errorHandler(event, file)  // execute function when error happen
+            errorHandler(event, file) // execute function when error happen
         });
         requests[file.id].addEventListener("abort", function (event) {
-            abortHandler(event, file)  // execute function when upload is interrupted
+            abortHandler(event, file) // execute function when upload is interrupted
         });
         requests[file.id].open('POST', postUrl); //Specifies the type of request & request method
         requests[file.id].send(formData); //Sends the request to the server
@@ -290,4 +294,3 @@ window.onload = function () {
 
 
 }
-
